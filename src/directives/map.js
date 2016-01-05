@@ -7,11 +7,17 @@ angular.module('ngMaps')
         zoom: '=',        // int
         events: '=',      // object {event:function(), event:function()}
         options: '=',     // function() { return {} }
+        api: '='  // public API, currently only only for getting reg to google map
       },
       controller: function($scope) {
-        // This function allows child directives to access the map
-        this.getMap = function() {
+        var getMap = function() {
           return $scope.map;
+        };
+        // This allows child directives to access the map via the parent reference
+        this.getMap = getMap;
+        // This allows controller to access the map
+        $scope.api = {
+          getMap: getMap
         };
       },
       transclude: true,
